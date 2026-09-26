@@ -1,94 +1,66 @@
-# Шаблон подписки PasarGuard
+# Шаблон подписки ManubisGuard
 
-Адаптивный шаблон страницы подписки для PasarGuard.
+Современный адаптивный шаблон страницы подписки для **ManubisGuard Panel**.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/PasarGuard/subscription-template/refs/heads/main/screenshots/en.png" alt="English UI" width="40%">
-  <img src="https://raw.githubusercontent.com/PasarGuard/subscription-template/refs/heads/main/screenshots/fa.png" alt="Persian UI" width="30%">
-</p>
+Интерфейс переработан в том же стиле Cyber Pulse, что и панель ManubisGuard: тёмная основа, стеклянные поверхности, фиолетовый primary, mint/cyan accents, мягкое свечение и тонкая сетка.
 
 ## Возможности
 
-- Языки: `en`, `fa`, `zh`, `ru`
-- Пользователь может менять язык в интерфейсе
-- Адаптивная верстка
-- Темный режим
-- QR-код для ссылок подключения
-- Копирование ссылок и конфигов в один клик, а Base64 доступен только в QR-модальном окне
-- Ссылки WireGuard можно копировать как нативный конфиг и скачивать в формате `.conf`
-- [Настройка внешнего вида](#appearance-customization)
+- тёмный и системный режим
+- English, فارسی, 中文 и Русский
+- статистика трафика
+- ссылки подписки и конфигураций
+- QR-код и копирование
+- загрузка WireGuard
+- приложения и ссылки импорта
+- объявления и поддержка
+- адаптивный single-file HTML
 
-## Совместимость
-
-| Версия шаблона подписки | Версия панели PasarGuard |
-| --- | --- |
-| `v2` | `v3` |
-| Остальные версии | `v2`, `v1` |
-
-## Быстрый старт (рекомендуется)
-
-Запустите скрипт установки (выберите язык по умолчанию):
+## Установка
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/PasarGuard/subscription-template/main/install.sh | sudo bash -s -- --lang ru
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh | sudo bash -s -- --lang ru
 ```
 
-Поддерживаемые значения `--lang`: `en`, `fa`, `zh`, `ru`
-Поддерживаемые значения `--version`: `latest` (по умолчанию) или тег релиза, например `v2.0.0`
-Чтобы установить конкретный релиз, добавьте `--version <tag>`.
+Файл устанавливается в:
 
-## Установка вручную
-
-1. Скачайте шаблон:
-
-```sh
-sudo mkdir -p /var/lib/pasarguard/templates/subscription
-sudo wget -O /var/lib/pasarguard/templates/subscription/index.html \
-https://github.com/PasarGuard/subscription-template/releases/latest/download/ru.html
+```text
+/var/lib/manubisguard/templates/subscription/index.html
 ```
 
-2. Настройте PasarGuard в `/opt/pasarguard/.env`:
+Настройки Panel находятся в:
+
+```text
+/opt/manubisguard-panel/.env
+```
 
 ```dotenv
-CUSTOM_TEMPLATES_DIRECTORY="/var/lib/pasarguard/templates/"
+CUSTOM_TEMPLATES_DIRECTORY="/var/lib/manubisguard/templates/"
 SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
 ```
 
-3. Перезапустите:
+Перезапуск:
 
 ```sh
-pasarguard restart
+sudo manubis restart
 ```
 
-## Сборка Из Исходников
+## Сборка
 
 ```sh
-git clone https://github.com/PasarGuard/subscription-template.git
+git clone https://github.com/ManubisGuard/subscription-template.git
 cd subscription-template
 bun install
 bun run build
 ```
 
-Используйте собранный файл:
+Результат: `dist/index.html`.
 
-```sh
-sudo cp dist/index.html /var/lib/pasarguard/templates/subscription/index.html
-```
+## Дизайн
 
-<a id="appearance-customization"></a>
+Цветовая база ManubisGuard: `#05060B`, `#6667FD`, `#66F0D1`, `#9B5CFF`, glass surfaces, ambient gradients, cyber grid и controlled glow.
 
-## Настройка Внешнего Вида
+## Репозитории
 
-Укажите это в `.env` и соберите заново:
-
-```dotenv
-VITE_PRIMARY_COLOR_LIGHT=oklch(0.48 0.11 250)
-VITE_PRIMARY_COLOR_DARK=oklch(0.60 0.12 250)
-VITE_BORDER_RADIUS=0.65rem
-```
-
-## Другие языки
-
-- [English](README.md)
-- [فارسی (Persian)](README.fa.md)
-- [中文 (Chinese)](README.zh.md)
+https://github.com/ManubisGuard/subscription-template
+https://github.com/ManubisGuard/ManubisGuard-Panel
