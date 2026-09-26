@@ -1,94 +1,131 @@
-# قالب اشتراک PasarGuard
+# قالب اشتراک ManubisGuard
 
-قالب صفحه اشتراک واکنش‌گرا برای PasarGuard.
+قالب مدرن و واکنش‌گرای صفحه اشتراک و داشبورد کاربر برای **ManubisGuard Panel**.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/PasarGuard/subscription-template/refs/heads/main/screenshots/en.png" alt="English UI" width="40%">
-  <img src="https://raw.githubusercontent.com/PasarGuard/subscription-template/refs/heads/main/screenshots/fa.png" alt="Persian UI" width="30%">
-</p>
+هویت بصری قالب اکنون با پنل ManubisGuard یکپارچه است و از همان سبک Dark-native، Cyber Pulse، Glass UI، نورهای محیطی و Grid ظریف استفاده می‌کند.
 
 ## امکانات
 
-- زبان‌ها: `en`، `fa`، `zh`، `ru`
-- امکان تغییر زبان توسط کاربر
-- طراحی واکنش‌گرا
-- حالت تاریک
-- QR برای لینک‌های اتصال
-- کپی لینک و کانفیگ با یک کلیک، با امکان کپی Base64 فقط در مودال QR
-- لینک‌های WireGuard به صورت کانفیگ اصلی هم قابل کپی و دانلود با فرمت `.conf` هستند
-- [شخصی‌سازی ظاهر](#appearance-customization)
+- 🌌 رابط کاربری Dark-native
+- 💜 Electric Violet همراه با Cyan و Mint
+- ✨ کارت‌های شیشه‌ای، Glow و نور محیطی
+- 📱 طراحی واکنش‌گرا برای موبایل و دسکتاپ
+- 🌍 فارسی، انگلیسی، چینی و روسی
+- 🌓 حالت روشن، تاریک و سیستم
+- 📊 نمودار مصرف با بازه‌های زمانی مختلف
+- 🔗 لینک اشتراک و لینک کانفیگ‌ها
+- 📋 کپی سریع لینک و کانفیگ
+- 📦 دانلود کانفیگ WireGuard
+- 🔳 QR Code
+- 🖥️ برنامه‌های پیشنهادی و لینک Import/Download
+- 📢 اعلان و لینک پشتیبانی
+- ⚡ خروجی Single-file برای استفاده مستقیم در پنل
 
 ## سازگاری
 
-| نسخه قالب اشتراک | نسخه پنل PasarGuard |
+| قالب اشتراک | ManubisGuard Panel |
 | --- | --- |
-| `v2` | `v3` |
-| سایر نسخه‌ها | `v2`، `v1` |
+| \`v2\` | \`v3\` |
+| سایر نسخه‌های پشتیبانی‌شده | \`v2\`، \`v1\` |
 
-## نصب سریع (پیشنهادی)
+طراحی جدید قرارداد داده و رفتار لینک اشتراک را تغییر نمی‌دهد.
 
-اجرای اسکریپت نصب (با انتخاب زبان پیش‌فرض):
+## نصب سریع
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/PasarGuard/subscription-template/main/install.sh | sudo bash -s -- --lang fa
-```
+نصب‌کننده کاملاً برای ManubisGuard تنظیم شده است:
 
-مقادیر معتبر `--lang`: `en`، `fa`، `zh`، `ru`
-مقادیر معتبر `--version`: `latest` (پیش‌فرض) یا یک تگ انتشار مثل `v2.0.0`
-برای نصب یک نسخه مشخص، `--version <tag>` را اضافه کنید.
+\`\`\`sh
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh | sudo bash -s -- --lang fa
+\`\`\`
+
+زبان‌های قابل انتخاب: \`en\`، \`fa\`، \`zh\`، \`ru\`.
+
+مسیر نصب:
+
+\`\`\`text
+/var/lib/manubisguard/templates/subscription/index.html
+\`\`\`
+
+فایل تنظیمات پنل:
+
+\`\`\`text
+/opt/manubisguard-panel/.env
+\`\`\`
+
+مقادیر مورد نیاز:
+
+\`\`\`dotenv
+CUSTOM_TEMPLATES_DIRECTORY="/var/lib/manubisguard/templates/"
+SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
+\`\`\`
+
+سپس:
+
+\`\`\`sh
+sudo manubis restart
+\`\`\`
 
 ## نصب دستی
 
-1. دانلود قالب:
-
-```sh
-sudo mkdir -p /var/lib/pasarguard/templates/subscription
-sudo wget -O /var/lib/pasarguard/templates/subscription/index.html \
-https://github.com/PasarGuard/subscription-template/releases/latest/download/index.html
-```
-
-2. تنظیم PasarGuard در فایل `/opt/pasarguard/.env`:
-
-```dotenv
-CUSTOM_TEMPLATES_DIRECTORY="/var/lib/pasarguard/templates/"
-SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
-```
-
-3. راه‌اندازی مجدد:
-
-```sh
-pasarguard restart
-```
+\`\`\`sh
+sudo mkdir -p /var/lib/manubisguard/templates/subscription
+sudo wget -O /var/lib/manubisguard/templates/subscription/index.html \
+https://github.com/ManubisGuard/subscription-template/releases/latest/download/index.html
+sudo manubis restart
+\`\`\`
 
 ## ساخت از سورس
 
-```sh
-git clone https://github.com/PasarGuard/subscription-template.git
+\`\`\`sh
+git clone https://github.com/ManubisGuard/subscription-template.git
 cd subscription-template
 bun install
 bun run build
-```
+\`\`\`
 
-استفاده از فایل ساخته‌شده:
+فایل خروجی \`dist/index.html\` است.
 
-```sh
-sudo cp dist/index.html /var/lib/pasarguard/templates/subscription/index.html
-```
+نصب:
 
-<a id="appearance-customization"></a>
+\`\`\`sh
+sudo mkdir -p /var/lib/manubisguard/templates/subscription
+sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
+sudo manubis restart
+\`\`\`
 
-## شخصی‌سازی ظاهر
+## Design System
 
-این مقادیر را در `.env` تنظیم کنید و دوباره build بگیرید:
+قالب از همان زبان بصری پنل ManubisGuard استفاده می‌کند:
 
-```dotenv
+- Background: \`#05060B\`
+- Primary: \`#6667FD\`
+- Secondary: \`#66F0D1\`
+- Accent: \`#9B5CFF\`
+- Glass surfaces
+- Ambient gradients
+- Cyber grid
+- Border و Shadow کنترل‌شده
+- Hover و Motion نرم
+- کارت‌های گرد و عملیاتی
+
+## شخصی‌سازی
+
+مقادیر build-time همچنان پشتیبانی می‌شوند:
+
+\`\`\`dotenv
 VITE_PRIMARY_COLOR_LIGHT=oklch(0.48 0.11 250)
 VITE_PRIMARY_COLOR_DARK=oklch(0.60 0.12 250)
 VITE_BORDER_RADIUS=0.65rem
-```
+\`\`\`
 
-## زبان‌های دیگر
+## داده‌ها
 
-- [English](README.md)
-- [Русский (Russian)](README.ru.md)
-- [中文 (Chinese)](README.zh.md)
+داده‌های فعلی پنل همچنان پشتیبانی می‌شوند: وضعیت کاربر، مصرف، تاریخ انقضا، لینک پروتکل‌ها، WireGuard، برنامه‌ها، اعلان، پشتیبانی و آمار مصرف.
+
+## مخزن
+
+https://github.com/ManubisGuard/subscription-template
+
+## مجوز
+
+فایل \`LICENSE\` مخزن مرجع مجوز پروژه است.
