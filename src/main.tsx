@@ -6,36 +6,25 @@ import App from './App.tsx'
 import { ThemeProvider } from './components/theme-provider'
 import { Toaster } from './components/ui/sonner'
 
-const documentRoot = document.documentElement
+const root = document.documentElement
 const lightPrimaryColor = import.meta.env.VITE_PRIMARY_COLOR_LIGHT?.trim()
 const darkPrimaryColor = import.meta.env.VITE_PRIMARY_COLOR_DARK?.trim()
 const borderRadius = import.meta.env.VITE_BORDER_RADIUS?.trim()
 
 const normalizeCssLength = (value?: string) => {
-  if (!value) {
-    return null
-  }
-
+  if (!value) return null
   return /^\d+(\.\d+)?$/.test(value) ? `${value}px` : value
 }
 
-if (lightPrimaryColor) {
-  documentRoot.style.setProperty('--primary-light', lightPrimaryColor)
-}
+if (lightPrimaryColor) root.style.setProperty('--primary-light', lightPrimaryColor)
+if (darkPrimaryColor) root.style.setProperty('--primary-dark', darkPrimaryColor)
 
-if (darkPrimaryColor) {
-  documentRoot.style.setProperty('--primary-dark', darkPrimaryColor)
-}
-
-const normalizedBorderRadius = normalizeCssLength(borderRadius)
-
-if (normalizedBorderRadius) {
-  documentRoot.style.setProperty('--radius', normalizedBorderRadius)
-}
+const radius = normalizeCssLength(borderRadius)
+if (radius) root.style.setProperty('--radius', radius)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <App />
       <Toaster />
     </ThemeProvider>
