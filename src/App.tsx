@@ -11,7 +11,7 @@ import { ConnectionLinks } from '@/components/connection-links';
 import { ProminentSubscriptionLink } from '@/components/prominent-subscription-link';
 import { AppsList } from '@/components/AppsList';
 import { formatRelativeExpiry, formatDate } from '@/lib/dateFormatter';
-import { RefreshCcw, Bell } from 'lucide-react';
+import { RefreshCcw, Bell, ShieldCheck, Activity } from 'lucide-react';
 import { useDir } from '@/hooks/useDir';
 import { cn } from './lib/utils';
 import type { UsageDataPoint } from '@/types/user';
@@ -239,7 +239,7 @@ function App() {
 
   return (
     <Layout>
-      <div className="relative min-h-screen overflow-hidden">
+      <div className="relative min-h-screen overflow-hidden pb-2">
         {/* Background Elements */}
         <div className="fixed inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none"></div>
         <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -251,6 +251,12 @@ function App() {
             {/* Header */}
             <div className="flex sm:items-center sm:justify-between gap-4 sm:gap-0 mb-8 sm:mb-12 animate-fadeIn">
               <div className="flex-1 min-w-0">
+                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary backdrop-blur-xl">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  <span>ManubisGuard</span>
+                  <span className="size-1.5 rounded-full bg-secondary shadow-[0_0_10px_hsl(var(--secondary)/.8)]" />
+                  <Activity className="h-3 w-3 text-secondary" />
+                </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-foreground">
                   {t('dashboard.title')}
                 </h1>
