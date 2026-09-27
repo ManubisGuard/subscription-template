@@ -63,6 +63,22 @@ type ParsedWireGuardUri = {
   reserved: string
   source: string
   keepalive: string
+  jc: string
+  jmin: string
+  jmax: string
+  s1: string
+  s2: string
+  s3: string
+  s4: string
+  h1: string
+  h2: string
+  h3: string
+  h4: string
+  i1: string
+  i2: string
+  i3: string
+  i4: string
+  i5: string
 }
 
 const parseWireGuardUri = (value: string): ParsedWireGuardUri | null => {
@@ -91,6 +107,22 @@ const parseWireGuardUri = (value: string): ParsedWireGuardUri | null => {
       reserved: getSearchParam(parsed.searchParams, 'reserved'),
       source,
       keepalive: getSearchParam(parsed.searchParams, 'keepalive'),
+      jc: getSearchParam(parsed.searchParams, 'jc'),
+      jmin: getSearchParam(parsed.searchParams, 'jmin'),
+      jmax: getSearchParam(parsed.searchParams, 'jmax'),
+      s1: getSearchParam(parsed.searchParams, 's1'),
+      s2: getSearchParam(parsed.searchParams, 's2'),
+      s3: getSearchParam(parsed.searchParams, 's3'),
+      s4: getSearchParam(parsed.searchParams, 's4'),
+      h1: getSearchParam(parsed.searchParams, 'h1'),
+      h2: getSearchParam(parsed.searchParams, 'h2'),
+      h3: getSearchParam(parsed.searchParams, 'h3'),
+      h4: getSearchParam(parsed.searchParams, 'h4'),
+      i1: getSearchParam(parsed.searchParams, 'i1'),
+      i2: getSearchParam(parsed.searchParams, 'i2'),
+      i3: getSearchParam(parsed.searchParams, 'i3'),
+      i4: getSearchParam(parsed.searchParams, 'i4'),
+      i5: getSearchParam(parsed.searchParams, 'i5'),
     }
   } catch {
     return null
@@ -126,6 +158,29 @@ export const convertWireGuardUrlToConfig = (value: string) => {
 
   if (parsed.reserved) {
     lines.push(`Reserved = ${parsed.reserved}`)
+  }
+
+  const awgFields: Array<[string, string]> = [
+    ['Jc', parsed.jc],
+    ['Jmin', parsed.jmin],
+    ['Jmax', parsed.jmax],
+    ['S1', parsed.s1],
+    ['S2', parsed.s2],
+    ['S3', parsed.s3],
+    ['S4', parsed.s4],
+    ['H1', parsed.h1],
+    ['H2', parsed.h2],
+    ['H3', parsed.h3],
+    ['H4', parsed.h4],
+    ['I1', parsed.i1],
+    ['I2', parsed.i2],
+    ['I3', parsed.i3],
+    ['I4', parsed.i4],
+    ['I5', parsed.i5],
+  ]
+
+  for (const [key, value] of awgFields) {
+    if (value) lines.push(`${key} = ${value}`)
   }
 
   lines.push('')
