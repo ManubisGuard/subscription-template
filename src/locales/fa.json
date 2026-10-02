@@ -128,5 +128,30 @@
       "androidtv": "Android TV",
       "other": "سایر"
     }
+  },
+  "portal": {
+    "accountIntelligence": "اطلاعات هوشمند حساب",
+    "connectionCenter": "مرکز اتصال",
+    "xrayProxy": "Xray / Proxy",
+    "amneziaWG": "Amnezia WireGuard",
+    "applications": "برنامه‌ها",
+    "networkAnalytics": "تحلیل شبکه",
+    "subscriptionCenter": "مرکز اشتراک",
+    "systemAlert": "هشدار سیستم",
+    "secureSession": "نشست امن",
+    "sync": "همگام‌سازی",
+    "open": "باز کردن",
+    "configurations": "کانفیگ",
+    "noConfigurations": "کانفیگی در دسترس نیست.",
+    "controlCenter": "مرکز کنترل",
+    "networkChannelReady": "کانال شبکه آماده است",
+    "live": "آنلاین",
+    "networkIntelligence": "هوشمندی شبکه",
+    "applicationCenter": "مرکز برنامه‌ها",
+    "advancedParameters": "پارامترهای پیشرفته",
+    "protocol": "پروتکل",
+    "server": "سرور",
+    "port": "پورت",
+    "all": "همه"
   }
 }

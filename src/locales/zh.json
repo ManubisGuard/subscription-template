@@ -128,5 +128,30 @@
       "androidtv": "Android TV",
       "other": "其他"
     }
+  },
+  "portal": {
+    "accountIntelligence": "账户智能",
+    "connectionCenter": "连接中心",
+    "xrayProxy": "Xray / Proxy",
+    "amneziaWG": "Amnezia WireGuard",
+    "applications": "应用中心",
+    "networkAnalytics": "网络分析",
+    "subscriptionCenter": "订阅中心",
+    "systemAlert": "系统通知",
+    "secureSession": "安全会话",
+    "sync": "同步",
+    "open": "打开",
+    "configurations": "个配置",
+    "noConfigurations": "暂无可用配置。",
+    "controlCenter": "控制中心",
+    "networkChannelReady": "网络通道已就绪",
+    "live": "在线",
+    "networkIntelligence": "网络智能",
+    "applicationCenter": "应用中心",
+    "advancedParameters": "高级参数",
+    "protocol": "协议",
+    "server": "服务器",
+    "port": "端口",
+    "all": "全部"
   }
 }

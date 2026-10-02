@@ -128,5 +128,30 @@
       "androidtv": "Android TV",
       "other": "Other"
     }
+  },
+  "portal": {
+    "accountIntelligence": "Account Intelligence",
+    "connectionCenter": "Connection Center",
+    "xrayProxy": "Xray / Proxy",
+    "amneziaWG": "Amnezia WireGuard",
+    "applications": "Applications",
+    "networkAnalytics": "Network Analytics",
+    "subscriptionCenter": "Subscription Center",
+    "systemAlert": "System Alert",
+    "secureSession": "Secure Session",
+    "sync": "Sync",
+    "open": "Open",
+    "configurations": "configurations",
+    "noConfigurations": "No configurations available.",
+    "controlCenter": "Control Center",
+    "networkChannelReady": "Network channel ready",
+    "live": "Live",
+    "networkIntelligence": "Network Intelligence",
+    "applicationCenter": "Application Center",
+    "advancedParameters": "Advanced Parameters",
+    "protocol": "Protocol",
+    "server": "Server",
+    "port": "Port",
+    "all": "All"
   }
 }

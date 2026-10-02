@@ -128,5 +128,30 @@
       "androidtv": "Android TV",
       "other": "Другое"
     }
+  },
+  "portal": {
+    "accountIntelligence": "Интеллект аккаунта",
+    "connectionCenter": "Центр подключений",
+    "xrayProxy": "Xray / Proxy",
+    "amneziaWG": "Amnezia WireGuard",
+    "applications": "Приложения",
+    "networkAnalytics": "Аналитика сети",
+    "subscriptionCenter": "Центр подписки",
+    "systemAlert": "Системное уведомление",
+    "secureSession": "Защищённая сессия",
+    "sync": "Синхронизация",
+    "open": "Открыть",
+    "configurations": "конфигураций",
+    "noConfigurations": "Конфигурации недоступны.",
+    "controlCenter": "Центр управления",
+    "networkChannelReady": "Сетевой канал готов",
+    "live": "Онлайн",
+    "networkIntelligence": "Аналитика сети",
+    "applicationCenter": "Центр приложений",
+    "advancedParameters": "Расширенные параметры",
+    "protocol": "Протокол",
+    "server": "Сервер",
+    "port": "Порт",
+    "all": "Все"
   }
 }
