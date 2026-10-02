@@ -69,8 +69,12 @@ sudo manubis restart
 
 \`\`\`sh
 sudo mkdir -p /var/lib/manubisguard/templates/subscription
-sudo wget -O /var/lib/manubisguard/templates/subscription/index.html \
-https://github.com/ManubisGuard/subscription-template/releases/latest/download/index.html
+git clone https://github.com/ManubisGuard/subscription-template.git
+cd subscription-template
+bun install
+VITE_FALLBACK_LANGUAGE=fa bun run build
+sudo mkdir -p /var/lib/manubisguard/templates/subscription
+sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
 sudo manubis restart
 \`\`\`
 
