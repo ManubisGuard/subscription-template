@@ -24,6 +24,7 @@ function App() {
   const { t } = useTranslation()
   useLanguage()
   const [timeRange,setTimeRange]=useState('7d')
+  const [activePanel,setActivePanel]=useState<'overview'|'connections'|'traffic'|'apps'>('overview')
   const { data,headers,error,isLoading,isValidating,refresh }=useUserInfo()
   const { data: configData }=useConfigData()
   const hasInitialData=typeof window!=='undefined' && Boolean(window.__INITIAL_DATA__?.user)
@@ -76,7 +77,7 @@ function App() {
       <div className="cyber-layout">
         <aside className="cyber-nav" aria-label={t('portal.controlCenter')}>
           <div className="cyber-nav-label">{t('portal.controlCenter')}</div>
-          {nav.map(([id,label])=><a key={id} href={`#${id}`} className="cyber-nav-item"><span>{label}</span><ChevronRight className="h-3.5 w-3.5"/></a>)}
+          {nav.map(([id,label])=><button key={id} type="button" aria-current={activePanel===id?'page':undefined} onClick={()=>setActivePanel(id)} className={activePanel===id?'cyber-nav-item cyber-nav-item-active':'cyber-nav-item'}><span>{label}</span><ChevronRight className="h-3.5 w-3.5"/></button>)}
           <div className="cyber-nav-line"/>
           <div className="cyber-nav-state"><span className="cyber-dot status-active"/><div><b>{t('status.'+status)}</b><small>{expiry}</small></div></div>
         </aside>
@@ -86,14 +87,15 @@ function App() {
             <div className="cyber-hero-signal"><span/><span/><span/><span/><span/></div>
           </div>
           {announcement&&<CyberCard accent="amber" className="p-4 sm:p-5"><div className="flex items-start gap-3"><div className="cyber-icon"><Bell className="h-4 w-4"/></div><div className="min-w-0 flex-1"><div className="cyber-eyebrow">{t('portal.systemAlert')}</div><p className="mt-1 whitespace-pre-wrap break-words text-sm">{announcement}</p>{announceUrl&&<a href={announceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm text-primary hover:underline">{t('userInfo.viewAnnouncement')}<ArrowUpRight className="h-3.5 w-3.5"/></a>}</div></div></CyberCard>}
-          <AccountOverview user={effectiveData}/>
-          <ConnectionCenter links={links}/>
-          <section id="traffic"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.networkIntelligence')} title={t('portal.networkAnalytics')} meta={chartError?t('usage.error'):undefined}/><TrafficChart data={chartPoints} isLoading={!chartData&&!chartError} error={chartError} timeRange={timeRange} onTimeRangeChange={setTimeRange}/></CyberCard></section>
-          <section id="apps"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.applicationCenter')} title={t('portal.applications')}/><AppsList/></CyberCard></section>
-          <CyberCard accent="cyan" className="p-5 sm:p-7"><SectionHeading eyebrow="SUBSCRIPTION CENTER" title={t('portal.subscriptionCenter')}/><div className="cyber-subscription"><div className="flex min-w-0 items-center gap-3"><div className="cyber-icon"><Activity className="h-4 w-4"/></div><div className="min-w-0"><div className="cyber-eyebrow">{t('config.subscriptionLink')}</div><div dir="ltr" className="mt-1 max-w-full truncate text-xs text-muted-foreground text-start">{window.location.origin+window.location.pathname.replace(/\/info$/,'')}</div></div></div><a className="cyber-action-primary shrink-0" href={window.location.origin+window.location.pathname.replace(/\/info$/,'')} target="_blank" rel="noreferrer">{t('portal.open')}<ArrowUpRight className="h-3.5 w-3.5"/></a></div></CyberCard>
+          <div key={activePanel} className="cyber-panel-content">
+            {activePanel==='overview'&&<><AccountOverview user={effectiveData}/><CyberCard accent="cyan" className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.subscriptionCenter')} title={t('portal.subscriptionCenter')}/><div className="cyber-subscription"><div className="flex min-w-0 items-center gap-3"><div className="cyber-icon"><Activity className="h-4 w-4"/></div><div className="min-w-0"><div className="cyber-eyebrow">{t('config.subscriptionLink')}</div><div dir="ltr" className="mt-1 max-w-full truncate text-xs text-muted-foreground text-start">{window.location.origin+window.location.pathname.replace(/\\/info$/,'')}</div></div></div><a className="cyber-action-primary shrink-0" href={window.location.origin+window.location.pathname.replace(/\\/info$/,'')} target="_blank" rel="noreferrer">{t('portal.open')}<ArrowUpRight className="h-3.5 w-3.5"/></a></div></CyberCard></>}
+            {activePanel==='connections'&&<ConnectionCenter links={links}/>}
+            {activePanel==='traffic'&&<section id="traffic"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.networkIntelligence')} title={t('portal.networkAnalytics')} meta={chartError?t('usage.error'):undefined}/><TrafficChart data={chartPoints} isLoading={!chartData&&!chartError} error={chartError} timeRange={timeRange} onTimeRangeChange={setTimeRange}/></CyberCard></section>}
+            {activePanel==='apps'&&<section id="apps"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.applicationCenter')} title={t('portal.applications')}/><AppsList/></CyberCard></section>}
+          </div>
           {headers?.['support-url']&&<div className="text-center pb-8"><a href={headers['support-url']} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:text-primary">{t('userInfo.supportUrl')}</a></div>}
         </main>
-      </div>
+      </div>div>
     </div>
   </Layout>
 }
