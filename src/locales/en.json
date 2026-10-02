@@ -4,7 +4,7 @@
     "tagline": "Censorship Resistant"
   },
   "dashboard": {
-    "title": "ManubisGuard Dashboard",
+    "title": "{{username}} Dashboard",
     "loading": "Loading user data...",
     "error": "Error loading user data"
   },
