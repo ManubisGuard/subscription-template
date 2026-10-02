@@ -10,7 +10,7 @@ import { CyberCard } from './CyberCard'
 const protocolLabel=(p:ParsedLink['protocol'])=>p==='wireguard'?'AMNEZIA WG':p==='hysteria'?'HY2':p==='shadowsocks'?'SHADOWSOCKS':p.toUpperCase()
 export function ConfigCard({link,index}:{link:string;index:number}){
  const {t}=useTranslation();const parsed=useMemo(()=>parseLink(link,index),[link,index]);const {copyToClipboard,isCopied}=useCopyToClipboard();const [details,setDetails]=useState(false);const [qr,setQr]=useState(false);const wg=useMemo(()=>getWireGuardDownloadPayload(parsed.raw),[parsed.raw])
- const advanced=useMemo(()=>{if(parsed.protocol!=='wireguard')return [];try{const u=new URL(parsed.raw);const keys=['jc','jmin','jmax','s1','s2','s3','s4','h1','h2','h3','h4','h5','i1','i2','i3','i4','i5','mtu','dns','reserved','keepalive'];return keys.map(k=>[k,u.searchParams.get(k)] as const).filter((x):x is [string,string]=>Boolean(x[1]))}catch{return []}},[parsed])
+ const advanced=useMemo(()=>{if(parsed.protocol!=='wireguard')return [];try{const u=new URL(parsed.raw);const keys=['jc','jmin','jmax','s1','s2','s3','s4','h1','h2','h3','h4','h5','i1','i2','i3','i4','i5','mtu','dns','reserved','keepalive'];return keys.map(k=>[k,u.searchParams.get(k)] as const).filter(x=>x[1] !== null) as Array<[string,string]>}catch{return []}},[parsed])
  const copy=()=>{const prepared=prepareSubscriptionContentForCopy(parsed.raw);copyToClipboard(prepared.content,`${parsed.raw}:config`)}
  const download=()=>{if(!wg)return;downloadTextFile(wg.content,wg.fileName);toast.success(t('configActions.downloadStarted'))}
  const copied=isCopied(`${parsed.raw}:config`)
