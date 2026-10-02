@@ -74,7 +74,7 @@ function App() {
       <div className="cyber-ambient cyber-ambient-a"/><div className="cyber-ambient cyber-ambient-b"/><div className="cyber-grid"/>
       <DashboardTop user={effectiveData.username} onlineAt={effectiveData.online_at} validating={isValidating} refresh={refresh} status={status}/>
       <div className="cyber-layout">
-        <aside className="cyber-nav" aria-label="{t('portal.controlCenter')}">
+        <aside className="cyber-nav" aria-label={t('portal.controlCenter')}>
           <div className="cyber-nav-label">{t('portal.controlCenter')}</div>
           {nav.map(([id,label])=><a key={id} href={`#${id}`} className="cyber-nav-item"><span>{label}</span><ChevronRight className="h-3.5 w-3.5"/></a>)}
           <div className="cyber-nav-line"/>
