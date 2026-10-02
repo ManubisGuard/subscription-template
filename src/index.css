@@ -405,3 +405,27 @@
 .cyber-card pre,.cyber-card code,.cyber-card a,.cyber-card p,.cyber-card b,.cyber-card span{overflow-wrap:anywhere}
 @media(max-width:900px){.cyber-layout{padding:.75rem}.cyber-main{width:100%}}
 @media(max-width:600px){.cyber-top{gap:.5rem;padding:.65rem}.cyber-layout{width:100%;padding:.55rem}.cyber-hero{width:100%;padding:.95rem}.cyber-card{width:100%}.cyber-subscription{width:100%}}
+
+
+/* Performance pass: keep the cyber shell visually rich without expensive full-screen compositing. */
+.cyber-shell{contain:layout paint}
+.cyber-grid{position:absolute;inset:0;mask-image:linear-gradient(to bottom,black,transparent 88%)}
+.cyber-ambient{position:absolute;filter:blur(56px);width:26rem;height:26rem;opacity:.08}
+.cyber-top{backdrop-filter:none;background:hsl(var(--background)/.94)}
+.cyber-card,.cyber-nav{backdrop-filter:none}
+.cyber-card{box-shadow:0 10px 32px hsl(230 40% 2%/.12)}
+.cyber-panel-content{min-width:0;content-visibility:auto;contain:layout style}
+.cyber-panel-content>.cyber-card,.cyber-panel-content>section{min-width:0}
+.cyber-nav-item{appearance:none;background:transparent;width:100%;text-align:inherit;cursor:pointer}
+.cyber-nav-item-active{color:hsl(var(--primary));background:hsl(var(--primary)/.09);border-color:hsl(var(--primary)/.16)}
+@media(max-width:900px){
+  .cyber-nav{backdrop-filter:none}
+}
+@media(max-width:600px){
+  .cyber-ambient{display:none}
+  .cyber-grid{opacity:.25}
+  .cyber-card{box-shadow:0 8px 24px hsl(230 40% 2%/.10)}
+}
+@media(prefers-reduced-motion:reduce){
+  .cyber-hero:after{animation:none}
+}
