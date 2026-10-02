@@ -258,7 +258,7 @@ function App() {
                   <Activity className="h-3 w-3 text-secondary" />
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-foreground">
-                  {t('dashboard.title')}
+                  {t('dashboard.title', { username: effectiveData.username })}
                 </h1>
                 <div className="flex min-w-0 items-center gap-2 text-end sm:gap-3">
                   <div className="flex min-w-0 max-w-full items-center gap-2 sm:gap-3">
