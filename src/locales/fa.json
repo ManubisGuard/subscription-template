@@ -4,7 +4,7 @@
     "tagline": "مقاوم در برابر سانسور"
   },
   "dashboard": {
-    "title": "داشبورد ManubisGuard",
+    "title": "داشبورد {{username}}",
     "loading": "در حال بارگذاری اطلاعات...",
     "error": "خطا در بارگذاری اطلاعات"
   },
