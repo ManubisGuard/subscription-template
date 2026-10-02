@@ -142,6 +142,16 @@
     "sync": "同步",
     "open": "打开",
     "configurations": "个配置",
-    "noConfigurations": "暂无可用配置。"
+    "noConfigurations": "暂无可用配置。",
+    "controlCenter": "控制中心",
+    "networkChannelReady": "网络通道已就绪",
+    "live": "在线",
+    "networkIntelligence": "网络智能",
+    "applicationCenter": "应用中心",
+    "advancedParameters": "高级参数",
+    "protocol": "协议",
+    "server": "服务器",
+    "port": "端口",
+    "all": "全部"
   }
 }
