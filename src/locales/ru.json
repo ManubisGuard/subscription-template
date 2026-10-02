@@ -142,6 +142,16 @@
     "sync": "Синхронизация",
     "open": "Открыть",
     "configurations": "конфигураций",
-    "noConfigurations": "Конфигурации недоступны."
+    "noConfigurations": "Конфигурации недоступны.",
+    "controlCenter": "Центр управления",
+    "networkChannelReady": "Сетевой канал готов",
+    "live": "Онлайн",
+    "networkIntelligence": "Аналитика сети",
+    "applicationCenter": "Центр приложений",
+    "advancedParameters": "Расширенные параметры",
+    "protocol": "Протокол",
+    "server": "Сервер",
+    "port": "Порт",
+    "all": "Все"
   }
 }
