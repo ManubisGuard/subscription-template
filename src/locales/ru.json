@@ -4,7 +4,7 @@
     "tagline": "Защита от цензуры"
   },
   "dashboard": {
-    "title": "Панель ManubisGuard",
+    "title": "Панель {{username}}",
     "loading": "Загрузка данных пользователя...",
     "error": "Ошибка загрузки данных"
   },
