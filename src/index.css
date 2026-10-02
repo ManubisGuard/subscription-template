@@ -392,3 +392,16 @@
 @media(max-width:900px){.cyber-layout{grid-template-columns:1fr;padding:.75rem}.cyber-nav{position:sticky;top:4.7rem;z-index:30;display:flex;gap:.35rem;overflow:auto;padding:.35rem;border:1px solid hsl(var(--border)/.65);border-radius:.8rem;background:hsl(var(--background)/.78);backdrop-filter:blur(18px)}.cyber-nav-label,.cyber-nav-line,.cyber-nav-state{display:none}.cyber-nav-item{white-space:nowrap;padding:.55rem .7rem}.cyber-nav-item svg{display:none}.cyber-top{padding:.75rem}.cyber-hero{min-height:125px}}
 @media(max-width:600px){.cyber-grid{background-size:38px 38px}.cyber-hero{padding:1.1rem}.cyber-hero-signal{display:none}.cyber-subscription{align-items:stretch;flex-direction:column}.cyber-subscription>a{width:100%}.cyber-card{border-radius:.85rem}.cyber-layout{gap:.7rem}.cyber-main{gap:.7rem}.cyber-tab{font-size:.52rem}.cyber-tab svg{display:none}}
 @media(prefers-reduced-motion:reduce){.cyber-hero:after,.cyber-boot-core svg{animation:none}}
+
+/* Responsive containment: keep every redesigned surface inside the viewport. */
+.cyber-shell,.cyber-layout,.cyber-main,.cyber-card,.cyber-hero,.cyber-subscription{box-sizing:border-box;min-width:0;max-width:100%}
+.cyber-layout{width:100%;max-width:1400px}
+.cyber-top{width:100%;box-sizing:border-box}
+.cyber-main>*,.cyber-main section,.cyber-main .cyber-card{min-width:0;max-width:100%}
+.cyber-card>*{min-width:0;max-width:100%}
+.cyber-card [class*="grid"]>*,.cyber-card [class*="flex"]>*{min-width:0}
+.cyber-subscription{overflow:hidden}
+.cyber-subscription>*{min-width:0}
+.cyber-card pre,.cyber-card code,.cyber-card a,.cyber-card p,.cyber-card b,.cyber-card span{overflow-wrap:anywhere}
+@media(max-width:900px){.cyber-layout{padding:.75rem}.cyber-main{width:100%}}
+@media(max-width:600px){.cyber-top{gap:.5rem;padding:.65rem}.cyber-layout{width:100%;padding:.55rem}.cyber-hero{width:100%;padding:.95rem}.cyber-card{width:100%}.cyber-subscription{width:100%}}
