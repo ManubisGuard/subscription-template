@@ -20,14 +20,7 @@ const getChartUsageData = (stats: unknown): UsageDataPoint[] => {
   if (!stats || typeof stats !== 'object' || Array.isArray(stats)) return []
   return Object.values(stats).find(isUsageDataSeries) ?? []
 }
-
-const formatBytes = (bytes:number) => {
-  if (!bytes || bytes <= 0) return '0 B'
-  const sizes=['B','KB','MB','GB','TB']; const i=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),sizes.length-1)
-  return `${(bytes/Math.pow(1024,i)).toFixed(2)} ${sizes[i]}`
-}
-
-function App() {
+\nfunction App() {
   const { t } = useTranslation()
   useLanguage()
   const [timeRange,setTimeRange]=useState('7d')
