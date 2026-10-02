@@ -20,7 +20,7 @@ const getChartUsageData = (stats: unknown): UsageDataPoint[] => {
   if (!stats || typeof stats !== 'object' || Array.isArray(stats)) return []
   return Object.values(stats).find(isUsageDataSeries) ?? []
 }
-\nfunction App() {
+function App() {
   const { t } = useTranslation()
   useLanguage()
   const [timeRange,setTimeRange]=useState('7d')
