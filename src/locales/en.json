@@ -142,6 +142,16 @@
     "sync": "Sync",
     "open": "Open",
     "configurations": "configurations",
-    "noConfigurations": "No configurations available."
+    "noConfigurations": "No configurations available.",
+    "controlCenter": "Control Center",
+    "networkChannelReady": "Network channel ready",
+    "live": "Live",
+    "networkIntelligence": "Network Intelligence",
+    "applicationCenter": "Application Center",
+    "advancedParameters": "Advanced Parameters",
+    "protocol": "Protocol",
+    "server": "Server",
+    "port": "Port",
+    "all": "All"
   }
 }
