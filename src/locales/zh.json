@@ -4,7 +4,7 @@
     "tagline": "抵抗审查"
   },
   "dashboard": {
-    "title": "ManubisGuard 用户面板",
+    "title": "{{username}} 用户面板",
     "loading": "正在加载用户数据...",
     "error": "加载用户数据时出错"
   },
