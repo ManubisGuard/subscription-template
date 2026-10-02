@@ -64,7 +64,7 @@ function App() {
   ] as const
 
   if(isLoading&&!hasInitialData){
-    return <Layout><div className="cyber-boot"><div className="cyber-boot-core"><ShieldCheck className="h-8 w-8"/><div><div className="cyber-eyebrow">{t('portal.secureSession')}</div><strong>{t('dashboard.loading')}</strong></div></div><div className="cyber-boot-lines"><span>{t('common.loading')}</span><span>{t('portal.sync')}</span><span>NETWORK CHANNEL READY</span></div></div></Layout>
+    return <Layout><div className="cyber-boot"><div className="cyber-boot-core"><ShieldCheck className="h-8 w-8"/><div><div className="cyber-eyebrow">{t('portal.secureSession')}</div><strong>{t('dashboard.loading')}</strong></div></div><div className="cyber-boot-lines"><span>{t('common.loading')}</span><span>{t('portal.sync')}</span><span>{t('portal.networkChannelReady')}</span></div></div></Layout>
   }
 
   if(error&&!effectiveData&&!isValidating){
@@ -81,8 +81,8 @@ function App() {
       <div className="cyber-ambient cyber-ambient-a"/><div className="cyber-ambient cyber-ambient-b"/><div className="cyber-grid"/>
       <DashboardTop user={effectiveData.username} onlineAt={effectiveData.online_at} validating={isValidating} refresh={refresh} status={status}/>
       <div className="cyber-layout">
-        <aside className="cyber-nav" aria-label="Dashboard navigation">
-          <div className="cyber-nav-label">MANUBIS // OS</div>
+        <aside className="cyber-nav" aria-label="{t('portal.controlCenter')}">
+          <div className="cyber-nav-label">{t('portal.controlCenter')}</div>
           {nav.map(([id,label])=><a key={id} href={`#${id}`} className="cyber-nav-item"><span>{label}</span><ChevronRight className="h-3.5 w-3.5"/></a>)}
           <div className="cyber-nav-line"/>
           <div className="cyber-nav-state"><span className="cyber-dot status-active"/><div><b>{t('status.'+status)}</b><small>{expiry}</small></div></div>
@@ -95,8 +95,8 @@ function App() {
           {announcement&&<CyberCard accent="amber" className="p-4 sm:p-5"><div className="flex items-start gap-3"><div className="cyber-icon"><Bell className="h-4 w-4"/></div><div className="min-w-0 flex-1"><div className="cyber-eyebrow">{t('portal.systemAlert')}</div><p className="mt-1 whitespace-pre-wrap break-words text-sm">{announcement}</p>{announceUrl&&<a href={announceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm text-primary hover:underline">{t('userInfo.viewAnnouncement')}<ArrowUpRight className="h-3.5 w-3.5"/></a>}</div></div></CyberCard>}
           <AccountOverview user={effectiveData}/>
           <ConnectionCenter links={links}/>
-          <section id="traffic"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow="NETWORK INTELLIGENCE" title={t('portal.networkAnalytics')} meta={chartError?t('usage.error'):undefined}/><TrafficChart data={chartPoints} isLoading={!chartData&&!chartError} error={chartError} timeRange={timeRange} onTimeRangeChange={setTimeRange}/></CyberCard></section>
-          <section id="apps"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow="APPLICATION CENTER" title={t('portal.applications')}/><AppsList/></CyberCard></section>
+          <section id="traffic"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.networkIntelligence')} title={t('portal.networkAnalytics')} meta={chartError?t('usage.error'):undefined}/><TrafficChart data={chartPoints} isLoading={!chartData&&!chartError} error={chartError} timeRange={timeRange} onTimeRangeChange={setTimeRange}/></CyberCard></section>
+          <section id="apps"><CyberCard className="p-5 sm:p-7"><SectionHeading eyebrow={t('portal.applicationCenter')} title={t('portal.applications')}/><AppsList/></CyberCard></section>
           <CyberCard accent="cyan" className="p-5 sm:p-7"><SectionHeading eyebrow="SUBSCRIPTION CENTER" title={t('portal.subscriptionCenter')}/><div className="cyber-subscription"><div className="flex min-w-0 items-center gap-3"><div className="cyber-icon"><Activity className="h-4 w-4"/></div><div className="min-w-0"><div className="cyber-eyebrow">{t('config.subscriptionLink')}</div><div dir="ltr" className="mt-1 max-w-full truncate text-xs text-muted-foreground text-start">{window.location.origin+window.location.pathname.replace(/\/info$/,'')}</div></div></div><a className="cyber-action-primary shrink-0" href={window.location.origin+window.location.pathname.replace(/\/info$/,'')} target="_blank" rel="noreferrer">{t('portal.open')}<ArrowUpRight className="h-3.5 w-3.5"/></a></div></CyberCard>
           {headers?.['support-url']&&<div className="text-center pb-8"><a href={headers['support-url']} target="_blank" rel="noreferrer" className="text-xs text-muted-foreground hover:text-primary">{t('userInfo.supportUrl')}</a></div>}
         </main>
@@ -107,6 +107,6 @@ function App() {
 
 function DashboardTop({user,onlineAt,validating,refresh,status}:{user:string;onlineAt:string|null;validating:boolean;refresh:()=>void;status:string}){
  const {t}=useTranslation()
- return <header className="cyber-top"><div className="flex min-w-0 items-center gap-3"><div className="cyber-brand-mark"><ShieldCheck className="h-5 w-5"/></div><div className="min-w-0"><div className="cyber-eyebrow">{t('brand.name')} · CONTROL CENTER</div><h1 dir="ltr" className="truncate text-lg sm:text-xl font-semibold text-start">{user}</h1></div><div className="hidden sm:flex items-center gap-2"><OnlineBadge lastOnline={onlineAt} showText/><span className={`cyber-live ${status==='active'?'':'opacity-60'}`}><Activity className="h-3 w-3"/>LIVE</span></div></div><div className="flex items-center gap-2"><button className="icon-action" disabled={validating||status==='disabled'} onClick={refresh} title={t('portal.sync')} aria-label={t('portal.sync')}><RefreshCcw className={`h-4 w-4 ${validating?'animate-spin':''}`}/></button><LanguageSwitcher/><ThemeToggle/></div></header>
+ return <header className="cyber-top"><div className="flex min-w-0 items-center gap-3"><div className="cyber-brand-mark"><ShieldCheck className="h-5 w-5"/></div><div className="min-w-0"><div className="cyber-eyebrow">{t('brand.name')} · {t('portal.controlCenter')}</div><h1 dir="ltr" className="truncate text-lg sm:text-xl font-semibold text-start">{user}</h1></div><div className="hidden sm:flex items-center gap-2"><OnlineBadge lastOnline={onlineAt} showText/><span className={`cyber-live ${status==='active'?'':'opacity-60'}`}><Activity className="h-3 w-3"/>{t('portal.live')}</span></div></div><div className="flex items-center gap-2"><button className="icon-action" disabled={validating||status==='disabled'} onClick={refresh} title={t('portal.sync')} aria-label={t('portal.sync')}><RefreshCcw className={`h-4 w-4 ${validating?'animate-spin':''}`}/></button><LanguageSwitcher/><ThemeToggle/></div></header>
 }
 export default App
