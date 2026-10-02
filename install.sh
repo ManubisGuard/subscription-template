@@ -2,14 +2,21 @@
 set -euo pipefail
 
 LANG_CODE="fa"
-VERSION="latest"
+VERSION="main"
+REPO="https://github.com/ManubisGuard/subscription-template.git"
 DEST_DIR="/var/lib/manubisguard/templates/subscription"
 DEST_FILE="${DEST_DIR}/index.html"
 ENV_FILE="/opt/manubisguard-panel/.env"
+WORK_DIR="$(mktemp -d /tmp/manubisguard-subscription.XXXXXX)"
+
+cleanup() {
+  rm -rf "$WORK_DIR"
+}
+trap cleanup EXIT
 
 usage() {
   cat <<'EOF'
-Usage: install.sh [--lang en|fa|zh|ru] [--version latest|<tag>]
+Usage: install.sh [--lang en|fa|zh|ru] [--version main|<branch-or-tag>]
 EOF
 }
 
@@ -25,23 +32,30 @@ done
 case "$LANG_CODE" in en|fa|zh|ru) ;; *) echo "Invalid language: $LANG_CODE" >&2; exit 1 ;; esac
 [[ -n "$VERSION" ]] || { echo "Version cannot be empty." >&2; exit 1; }
 
-RELEASE_PATH="latest/download"
-if [[ "$VERSION" != "latest" ]]; then RELEASE_PATH="download/$VERSION"; fi
+for cmd in git; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "Error: $cmd is required. Install it and run this installer again." >&2
+    exit 1
+  fi
+done
 
-URL="https://github.com/ManubisGuard/subscription-template/releases/${RELEASE_PATH}/${LANG_CODE}.html"
-if [[ "$LANG_CODE" == "fa" ]]; then
-  URL="https://github.com/ManubisGuard/subscription-template/releases/${RELEASE_PATH}/index.html"
+echo "Cloning ManubisGuard subscription template from $REPO ..."
+git clone --depth 1 --branch "$VERSION" "$REPO" "$WORK_DIR/repo" >/dev/null 2>&1
+
+cd "$WORK_DIR/repo"
+
+if ! command -v bun >/dev/null 2>&1; then
+  echo "Bun is not installed. Installing Bun ..."
+  curl -fsSL https://bun.sh/install | bash
+  export BUN_INSTALL="${BUN_INSTALL:-$HOME/.bun}"
+  export PATH="$BUN_INSTALL/bin:$PATH"
 fi
+
+bun install --frozen-lockfile >/dev/null
+VITE_FALLBACK_LANGUAGE="$LANG_CODE" bun run build >/dev/null
 
 mkdir -p "$DEST_DIR"
-if command -v wget >/dev/null 2>&1; then
-  wget -q -O "$DEST_FILE" "$URL"
-elif command -v curl >/dev/null 2>&1; then
-  curl -fsSL "$URL" -o "$DEST_FILE"
-else
-  echo "Error: neither wget nor curl is installed." >&2
-  exit 1
-fi
+cp dist/index.html "$DEST_FILE"
 
 mkdir -p "$(dirname "$ENV_FILE")"
 touch "$ENV_FILE"
@@ -69,7 +83,7 @@ upsert_env SUBSCRIPTION_PAGE_TEMPLATE '"subscription/index.html"'
 
 if command -v manubis >/dev/null 2>&1; then
   manubis restart
-  echo "ManubisGuard subscription template installed and Panel restarted."
+  echo "ManubisGuard subscription template installed from your fork."
 else
   echo "Installed at $DEST_FILE. Run 'sudo manubis restart' manually."
 fi
