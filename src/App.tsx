@@ -36,7 +36,7 @@ function App() {
     start.setTime(now.getTime()-(hours[timeRange]??168)*3600000)
     return {startTime:start,period:timeRange==='1h'?'minute':['12h','24h'].includes(timeRange)?'hour':'day'}
   },[timeRange])
-  const {chartData,chartError}=useChartData(startTime,period,true)
+  const {chartData,chartError}=useChartData(startTime,period,activePanel==='traffic')
   const status=useMemo(()=>{
     const value=String(effectiveData?.status??'active').toLowerCase()
     return ['active','disabled','limited','expired','on_hold'].includes(value)?value:'active'
