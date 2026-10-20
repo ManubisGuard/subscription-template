@@ -11,7 +11,7 @@ import { ConnectionLinks } from '@/components/connection-links';
 import { ProminentSubscriptionLink } from '@/components/prominent-subscription-link';
 import { AppsList } from '@/components/AppsList';
 import { formatRelativeExpiry, formatDate } from '@/lib/dateFormatter';
-import { RefreshCcw, Bell, ShieldCheck, Activity } from 'lucide-react';
+import { RefreshCcw, Bell, Activity } from 'lucide-react';
 import { useDir } from '@/hooks/useDir';
 import { cn } from './lib/utils';
 import type { UsageDataPoint } from '@/types/user';
