@@ -252,10 +252,11 @@ function App() {
             <div className="flex sm:items-center sm:justify-between gap-4 sm:gap-0 mb-8 sm:mb-12 animate-fadeIn">
               <div className="flex-1 min-w-0">
                 <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary backdrop-blur-xl">
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  <span>ManubisGuard</span>
-                  <span className="size-1.5 rounded-full bg-secondary shadow-[0_0_10px_hsl(var(--secondary)/.8)]" />
-                  <Activity className="h-3 w-3 text-secondary" />
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-60" />
+                    <span className="relative inline-flex size-2 rounded-full bg-secondary shadow-[0_0_10px_hsl(var(--secondary)/.8)]" />
+                  </span>
+                  <span>SECURE CONNECTION</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-foreground">
                   {t('dashboard.title', { username: effectiveData.username })}
