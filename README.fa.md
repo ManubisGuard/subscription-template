@@ -1,135 +1,81 @@
-# قالب اشتراک ManubisGuard
+# قالب صفحه اشتراک ManubisGuard
 
-قالب مدرن و واکنش‌گرای صفحه اشتراک و داشبورد کاربر برای **ManubisGuard Panel**.
-
-هویت بصری قالب اکنون با پنل ManubisGuard یکپارچه است و از همان سبک Dark-native، Cyber Pulse، Glass UI، نورهای محیطی و Grid ظریف استفاده می‌کند.
-
-## امکانات
-
-- 🌌 رابط کاربری Dark-native
-- 💜 Electric Violet همراه با Cyan و Mint
-- ✨ کارت‌های شیشه‌ای، Glow و نور محیطی
-- 📱 طراحی واکنش‌گرا برای موبایل و دسکتاپ
-- 🌍 فارسی، انگلیسی، چینی و روسی
-- 🌓 حالت روشن، تاریک و سیستم
-- 📊 نمودار مصرف با بازه‌های زمانی مختلف
-- 🔗 لینک اشتراک و لینک کانفیگ‌ها
-- 📋 کپی سریع لینک و کانفیگ
-- 📦 دانلود کانفیگ WireGuard
-- 🔳 QR Code
-- 🖥️ برنامه‌های پیشنهادی و لینک Import/Download
-- 📢 اعلان و لینک پشتیبانی
-- ⚡ خروجی Single-file برای استفاده مستقیم در پنل
-
-## سازگاری
-
-| قالب اشتراک | ManubisGuard Panel |
-| --- | --- |
-| \`v2\` | \`v3\` |
-| سایر نسخه‌های پشتیبانی‌شده | \`v2\`، \`v1\` |
-
-طراحی جدید قرارداد داده و رفتار لینک اشتراک را تغییر نمی‌دهد.
+قالب واکنش‌گرا و چندزبانه برای صفحه اشتراک در مرورگر؛ قرارداد داده و رفتار لینک‌های اشتراک پنل ManubisGuard حفظ می‌شود.
 
 ## نصب سریع
 
-نصب‌کننده کاملاً برای ManubisGuard تنظیم شده است:
+این دستورها را روی سرور پنل ManubisGuard اجرا کن. نصب‌کننده Mount واقعی داده‌های کانتینر پنل را تشخیص می‌دهد، قالب را می‌سازد، تنظیمات را اعمال می‌کند و **فقط کانتینر برنامه پنل** را بازسازی می‌کند؛ دیتابیس ری‌استارت نمی‌شود.
 
-\`\`\`sh
-curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh | sudo bash -s -- --lang fa
-\`\`\`
+```sh
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh -o /tmp/manubisguard-subscription-install.sh
+sudo bash /tmp/manubisguard-subscription-install.sh --lang fa
+```
 
-زبان‌های قابل انتخاب: \`en\`، \`fa\`، \`zh\`، \`ru\`.
+زبان‌های پشتیبانی‌شده: `fa`، `en`، `zh`، `ru`. زبان پیش‌فرض فارسی است.
 
-مسیر نصب:
+مسیر پیش‌فرض پنل `/opt/manubisguard-panel` است و باید فایل‌های `.env` و `docker-compose.yml` در آن وجود داشته باشند. برای مسیر سفارشی:
 
-\`\`\`text
+```sh
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh -o /tmp/manubisguard-subscription-install.sh
+sudo env MANUBISGUARD_PANEL_DIR=/path/to/manubisguard-panel bash /tmp/manubisguard-subscription-install.sh --lang fa
+```
+
+## مسیر نصب و تنظیمات
+
+در نصب استاندارد، فایل HTML روی میزبان در این مسیر قرار می‌گیرد:
+
+```text
 /var/lib/manubisguard/templates/subscription/index.html
-\`\`\`
+```
 
-فایل تنظیمات پنل:
+در فایل `/opt/manubisguard-panel/.env` این مقادیر تنظیم می‌شوند:
 
-\`\`\`text
-/opt/manubisguard-panel/.env
-\`\`\`
-
-مقادیر مورد نیاز:
-
-\`\`\`dotenv
+```dotenv
 CUSTOM_TEMPLATES_DIRECTORY="/var/lib/manubisguard/templates/"
 SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
-\`\`\`
+```
 
-سپس:
+نصب‌کننده مسیر میزبان را از Mount واقعی `/var/lib/manubisguard` در کانتینر پنل می‌خواند تا فایل دقیقاً در Volume مورد استفاده پنل قرار گیرد. پیش از تغییر، از فایل HTML قبلی و `.env` نسخه پشتیبان زمان‌دار می‌سازد.
 
-\`\`\`sh
-sudo manubis restart
-\`\`\`
+برای اعمال متغیرهای محیطی، فقط سرویس برنامه پنل بازسازی می‌شود:
+
+```sh
+cd /opt/manubisguard-panel
+docker compose up -d --no-deps --force-recreate manubisguard
+```
+
+از `manubis restart` استفاده نمی‌شود، چون سرویس دیتابیس را هم ری‌استارت می‌کند.
+
+## انتخاب شاخه یا تگ
+
+فقط شاخه یا تگی را انتخاب کن که واقعاً در مخزن وجود دارد:
+
+```sh
+sudo bash /tmp/manubisguard-subscription-install.sh --lang fa --version main
+```
+
+پیش‌فرض `main` است؛ شماره نسخه داخل `package.json` به‌تنهایی به معنی وجود Git tag یا Release نیست.
 
 ## نصب دستی
 
-\`\`\`sh
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
+```sh
 git clone https://github.com/ManubisGuard/subscription-template.git
 cd subscription-template
-bun install
+bun install --frozen-lockfile
 VITE_FALLBACK_LANGUAGE=fa bun run build
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
-sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
-sudo manubis restart
-\`\`\`
+sudo install -D -m 0644 dist/index.html /var/lib/manubisguard/templates/subscription/index.html
+```
 
-## ساخت از سورس
+دو متغیر بالا را در `/opt/manubisguard-panel/.env` ثبت کن و سپس دستور Compose برای بازسازی فقط سرویس پنل را اجرا کن. اگر نام سرویس یا مسیر Volume متفاوت است، مسیرها را مطابق نصب خودت تغییر بده.
 
-\`\`\`sh
-git clone https://github.com/ManubisGuard/subscription-template.git
-cd subscription-template
-bun install
-bun run build
-\`\`\`
+## شخصی‌سازی هنگام Build
 
-فایل خروجی \`dist/index.html\` است.
-
-نصب:
-
-\`\`\`sh
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
-sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
-sudo manubis restart
-\`\`\`
-
-## Design System
-
-قالب از همان زبان بصری پنل ManubisGuard استفاده می‌کند:
-
-- Background: \`#05060B\`
-- Primary: \`#6667FD\`
-- Secondary: \`#66F0D1\`
-- Accent: \`#9B5CFF\`
-- Glass surfaces
-- Ambient gradients
-- Cyber grid
-- Border و Shadow کنترل‌شده
-- Hover و Motion نرم
-- کارت‌های گرد و عملیاتی
-
-## شخصی‌سازی
-
-مقادیر build-time همچنان پشتیبانی می‌شوند:
-
-\`\`\`dotenv
+```dotenv
 VITE_PRIMARY_COLOR_LIGHT=oklch(0.48 0.11 250)
 VITE_PRIMARY_COLOR_DARK=oklch(0.60 0.12 250)
 VITE_BORDER_RADIUS=0.65rem
-\`\`\`
+```
 
-## داده‌ها
+طراحی جدید داده‌های صفحه اشتراک پنل، از جمله وضعیت کاربر، مصرف، تاریخ انقضا، لینک پروتکل‌ها، WireGuard، برنامه‌ها، اعلان‌ها، لینک پشتیبانی و آمار مصرف را حفظ می‌کند.
 
-داده‌های فعلی پنل همچنان پشتیبانی می‌شوند: وضعیت کاربر، مصرف، تاریخ انقضا، لینک پروتکل‌ها، WireGuard، برنامه‌ها، اعلان، پشتیبانی و آمار مصرف.
-
-## مخزن
-
-https://github.com/ManubisGuard/subscription-template
-
-## مجوز
-
-فایل \`LICENSE\` مخزن مرجع مجوز پروژه است.
+مخزن: https://github.com/ManubisGuard/subscription-template
