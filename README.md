@@ -1,153 +1,83 @@
 # ManubisGuard Subscription Template
 
-Modern, responsive subscription and user dashboard template for **ManubisGuard Panel**.
+A responsive, localized browser subscription page for ManubisGuard Panel. Existing subscription payloads and URL behavior are preserved.
 
-> A ManubisGuard-branded subscription experience using the same dark-native Cyber Pulse visual language as the ManubisGuard Panel.
+## Quick install
 
-## Highlights
+Run on the ManubisGuard Panel server. The installer detects the active panel container's data-volume mount when available, builds the selected language, configures the custom-template settings, and recreates **only the panel application container**. It does not restart the database.
 
-- 🌌 Dark-native Cyber Pulse interface
-- 💜 Electric violet, cyan and mint design tokens
-- ✨ Glass surfaces, ambient gradients, subtle grid and controlled glow
-- 📱 Responsive desktop and mobile layout
-- 🌍 English, Persian, Chinese and Russian
-- 🌓 Light, dark and system theme modes
-- 📊 Traffic usage charts with selectable ranges
-- 🔗 Subscription and protocol configuration links
-- 📋 One-click copy for links and configs
-- 📦 WireGuard config download
-- 🔳 QR code actions
-- 🖥️ Application recommendations and import links
-- 📢 Announcements and support links
-- ⚡ Single-file Vite output for direct Panel template usage
+```sh
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh -o /tmp/manubisguard-subscription-install.sh
+sudo bash /tmp/manubisguard-subscription-install.sh --lang fa
+```
 
-## Compatibility
+Supported languages: `en`, `fa`, `zh`, `ru`. Default: Persian (`fa`).
 
-| Subscription Template | ManubisGuard Panel |
-| --- | --- |
-| \`v2\` | \`v3\` |
-| Other supported versions | \`v2\`, \`v1\` |
+The default panel directory is `/opt/manubisguard-panel`. It must contain `.env` and `docker-compose.yml`. For a custom location:
 
-The redesign preserves the existing template data contract and subscription URL behavior.
+```sh
+curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh -o /tmp/manubisguard-subscription-install.sh
+sudo env MANUBISGUARD_PANEL_DIR=/path/to/manubisguard-panel bash /tmp/manubisguard-subscription-install.sh --lang fa
+```
 
-## Quick Install
+Review the installer before running it as root if you want to inspect its actions.
 
-The installer is ManubisGuard-native and uses the same canonical directories as the ManubisGuard Panel:
+## Install paths and settings
 
-\`\`\`sh
-curl -fsSL https://raw.githubusercontent.com/ManubisGuard/subscription-template/main/install.sh | sudo bash -s -- --lang fa
-\`\`\`
+On a standard installation, the host-side HTML file is:
 
-Supported languages: \`en\`, \`fa\`, \`zh\`, \`ru\`.
-
-A specific release can be selected with \`--version\`:
-
-\`\`\`sh
-sudo bash install.sh --lang fa --version v2.2.1
-\`\`\`
-
-The generated page is installed at:
-
-\`\`\`text
+```text
 /var/lib/manubisguard/templates/subscription/index.html
-\`\`\`
+```
 
-The installer configures:
+The panel environment file `/opt/manubisguard-panel/.env` must contain:
 
-\`\`\`text
-/opt/manubisguard-panel/.env
-\`\`\`
-
-with:
-
-\`\`\`dotenv
+```dotenv
 CUSTOM_TEMPLATES_DIRECTORY="/var/lib/manubisguard/templates/"
 SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
-\`\`\`
+```
 
-If the \`manubis\` CLI is available, the installer restarts the Panel automatically.
+The installer reads the actual bind mount for `/var/lib/manubisguard` from the running panel container, so the file is written to the host directory that the panel actually uses. It backs up the previous HTML file and `.env` with timestamps.
 
-## Manual Install
+To apply the environment settings, it recreates only the application service:
 
-\`\`\`sh
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
+```sh
+cd /opt/manubisguard-panel
+docker compose up -d --no-deps --force-recreate manubisguard
+```
+
+It intentionally avoids `manubis restart`, which restarts the database service as well.
+
+## Branch or tag
+
+Use only a branch or tag that exists in the repository:
+
+```sh
+sudo bash /tmp/manubisguard-subscription-install.sh --lang fa --version main
+```
+
+The default is `main`. A package version number does not by itself mean a Git tag or GitHub Release exists.
+
+## Manual build and install
+
+```sh
 git clone https://github.com/ManubisGuard/subscription-template.git
 cd subscription-template
-bun install
+bun install --frozen-lockfile
 VITE_FALLBACK_LANGUAGE=fa bun run build
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
-sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
-\`\`\`
+sudo install -D -m 0644 dist/index.html /var/lib/manubisguard/templates/subscription/index.html
+```
 
-Set these values in \`/opt/manubisguard-panel/.env\`:
+Set the two environment variables above in `/opt/manubisguard-panel/.env`, then run the service-only Compose command shown above. If your Compose service name or data mount differs from the standard layout, adjust the paths accordingly.
 
-\`\`\`dotenv
-CUSTOM_TEMPLATES_DIRECTORY="/var/lib/manubisguard/templates/"
-SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"
-\`\`\`
+## Build-time customization
 
-Restart:
-
-\`\`\`sh
-sudo manubis restart
-\`\`\`
-
-## Build From Source
-
-\`\`\`sh
-git clone https://github.com/ManubisGuard/subscription-template.git
-cd subscription-template
-bun install
-bun run build
-\`\`\`
-
-The output is \`dist/index.html\`. Install it with:
-
-\`\`\`sh
-sudo mkdir -p /var/lib/manubisguard/templates/subscription
-sudo cp dist/index.html /var/lib/manubisguard/templates/subscription/index.html
-sudo manubis restart
-\`\`\`
-
-## Design System
-
-The template follows the ManubisGuard Panel visual system:
-
-- Background: \`#05060B\`
-- Primary: \`#6667FD\`
-- Secondary: \`#66F0D1\`
-- Accent: \`#9B5CFF\`
-- Glassmorphism surfaces
-- Ambient radial lighting
-- Subtle cyber grid
-- Controlled border and shadow depth
-- Soft motion and hover feedback
-- Rounded operational cards
-
-Build-time overrides remain supported:
-
-\`\`\`dotenv
+```dotenv
 VITE_PRIMARY_COLOR_LIGHT=oklch(0.48 0.11 250)
 VITE_PRIMARY_COLOR_DARK=oklch(0.60 0.12 250)
 VITE_BORDER_RADIUS=0.65rem
-\`\`\`
+```
 
-## Template Data
+The design preserves panel-provided subscription-page data, including user status, traffic usage, expiry, protocol links, WireGuard, applications, announcements, support links, and usage statistics.
 
-Existing Panel-provided data remains supported, including user status, traffic, expiry, protocol links, WireGuard, applications, announcements, support URL and usage statistics.
-
-The visual redesign is intentionally separated from this data contract.
-
-## Releases
-
-GitHub Actions builds one HTML artifact per locale. Persian is the default fallback and produces \`index.html\`; locale-specific artifacts are also generated.
-
-## Repositories
-
-- https://github.com/ManubisGuard/subscription-template
-- https://github.com/ManubisGuard/ManubisGuard-Panel
-- https://github.com/ManubisGuard/ManubisGuard-Node
-
-## License
-
-See the repository \`LICENSE\` file.
+Repository: https://github.com/ManubisGuard/subscription-template
